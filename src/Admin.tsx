@@ -92,5 +92,6 @@ export const Evidence = () => { useDb(); const [imgs, setImgs] = useState<string
       {imgs.length === 0 ? <p className="text-sm text-slate-500">Add your INSERT / SELECT / JOIN screenshots here to show them during the demo.</p> : <div className="grid sm:grid-cols-2 gap-3">{imgs.map(s => <img key={s} src={s} alt="Evidence screenshot" className="rounded-xl border" />)}</div>}</Sec>
   </div></>; };
 
-export const PAGES: [string, string, () => JSX.Element][] = [["Dashboard", "dash", Dashboard], ...["CATEGORY", "PRODUCT", "CUSTOMER", "CART", "ORDERS", "ORDER_ITEM", "PAYMENT", "DELIVERY"].map(t => [t === "ORDER_ITEM" ? "Order Items" : t[0] + t.slice(1).toLowerCase(), t, () => <TableView t={t} />] as [string, string, () => JSX.Element]),
+export const PAGES: [string, string, (props?: { only?: string[] }) => JSX.Element][] = [["Dashboard", "dash", Dashboard], ...["CATEGORY", "PRODUCT", "CUSTOMER", "CART", "ORDERS", "ORDER_ITEM", "PAYMENT", "DELIVERY"].map(t => [t === "ORDER_ITEM" ? "Order Items" : t[0] + t.slice(1).toLowerCase(), t, () => <TableView t={t} />] as [string, string, () => JSX.Element]),
   ["SQL Operations", "sql", SqlOps], ["CRUD Operations", "crud", Crud], ["Advanced Queries", "adv", Advanced], ["Database Views", "view", Views], ["Data Integrity", "int", Integrity], ["ER Diagram", "er", ER], ["Evidence / Reports", "ev", Evidence]];
+

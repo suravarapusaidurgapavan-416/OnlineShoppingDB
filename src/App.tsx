@@ -4,7 +4,7 @@ import { PAGES, Dashboard, Crud, SqlOps, Advanced, Views, Integrity, ER, Evidenc
 import { db, useDb } from "./db";
 import { Table, Sql } from "./ui";
 
-const SLIDES: { t: string; explain: string; example: string; visual: () => JSX.Element }[] = [
+const SLIDES: { t: string; explain: string; example: string; visual: (props?: { only?: string[] }) => JSX.Element }[] = [
   { t: "Database & Tables", explain: "OnlineShoppingDB stores everything in 8 related tables. Each table holds one kind of fact.", example: "CREATE TABLE PRODUCT (Product_ID INT PRIMARY KEY, Name VARCHAR(80), Price DECIMAL(10,2), Stock INT, Category_ID INT, FOREIGN KEY (Category_ID) REFERENCES CATEGORY(Category_ID));", visual: () => <div className="grid grid-cols-2 md:grid-cols-4 gap-2">{Object.keys(db).map(t => <div key={t} className="card !p-3 text-center"><b>{t}</b><p className="text-xs text-slate-500">{db[t].length} rows</p></div>)}</div> },
   { t: "Sample Data", explain: "Realistic rows let us test every feature.", example: "INSERT INTO PRODUCT VALUES (201,'Wireless Headphones',1499,25,1);", visual: () => <Table rows={db.PRODUCT} /> },
   { t: "SQL Operations", explain: "DDL = structure, DML = data, DQL = retrieval.", example: "ALTER TABLE PRODUCT ADD Brand VARCHAR(40);  -- DDL\nUPDATE PRODUCT SET Stock=20 WHERE Product_ID=201;  -- DML\nSELECT * FROM PRODUCT;  -- DQL", visual: SqlOps },
@@ -33,3 +33,4 @@ export default function App() {
       <div className="ml-auto flex gap-2"><button className="btn-ghost" onClick={() => setMode("shop")}>View store</button><button className="btn-gold" onClick={() => setMode("present")}>Presentation Mode</button></div></div>
       <main className="p-4 md:p-8 fade" key={pg}><Page /></main></div></div>;
 }
+
